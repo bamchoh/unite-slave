@@ -44,6 +44,7 @@ int main(int argc, char *argv[])
 
 	// waiting for receive any data
 	int n;
+  int type;
 	while(1) {
 		n = driver.read(&driver);
 
@@ -56,10 +57,12 @@ int main(int argc, char *argv[])
 		}
 		printf("\n");
 
-		driver.parse(&driver, n);
-	}
+		type = driver.parse(&driver, n);
 
-	driver.close(&driver);
-	// fclose(fp);
-	return 0;
+    driver.write(&driver, type);
+  }
+
+  driver.close(&driver);
+  // fclose(fp);
+  return 0;
 }
