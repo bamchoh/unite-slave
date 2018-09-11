@@ -158,11 +158,23 @@ int unite_write(struct unite_struct *driver, int type) {
         driver->txbuf[3] = 6;
         driver->txbuf[4] = 0xFE;
         driver->txbuf[5] = 0xFF;
+
+        for(int i=0;i<6;i++) {
+          if(i != 0) {
+            printf(",");
+          }
+          printf("%02X", driver->txbuf[i]);
+        }
+        printf("\n");
+
         write(driver->fd, driver->txbuf, 6);
         driver->state = UNITE_WAIT_TO_RECV;
       } else {
         printf("wait to recv\n");
         driver->txbuf[0] = EOT;
+
+        printf("EOT\n");
+
         write(driver->fd, driver->txbuf, 1);
       }
       break;
